@@ -100,9 +100,12 @@ To thoroughly evaluate loop stability, regulation precision, and response times,
 * **Objective:** Checks dynamic transient speed when the load current experiences near-instantaneous step changes. This evaluates stability limits such as dampening, ringing, and tracking recovery speed.
 
 #### Measured Parameters:
-- **Undershoot:** `26.49 mV` *(The momentary voltage sag observed immediately following a sharp step-up change in load current)*.
-- **Overshoot:** `32.19 mV` *(The brief voltage spike that manifests right after a sudden step-down decrease in load current)*.
-- **Settling Time:** **`10.9 µs`** *(The total elapsed duration required for the internal feedback loop to dampen out the disturbance and guide the output back into its normal regulated threshold)*.
+- **Undershoot:** `26.49 mV`
+  * **Definition:** The maximum temporary drop in the output voltage below its nominal regulated value immediately following a sudden, sharp increase in load current demand.
+- **Overshoot:** `32.19 mV`
+  * **Definition:** The maximum temporary spike or rise in the output voltage above its nominal regulated value that occurs immediately after a sudden, sharp decrease in load current demand.
+- **Settling Time:** **`10.9 µs`**
+  * **Definition:** The total elapsed time required for the output voltage waveform to stop fluctuating and permanently remain within a specific narrow error band (usually $\pm 1\%$ or $\pm 5\%$) around its steady-state target value following a transient disturbance.
 
 ![Load Transient Response Waveform](load_transient.jpg)
 ![Load Transient Response Waveform](result.jpg)
