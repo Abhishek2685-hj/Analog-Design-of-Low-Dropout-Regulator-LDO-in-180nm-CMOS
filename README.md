@@ -105,6 +105,6 @@ To thoroughly evaluate loop stability, regulation precision, and response times,
 - **Settling Time:** **`10.9 µs`** *(The total elapsed duration required for the internal feedback loop to dampen out the disturbance and guide the output back into its normal regulated threshold)*.
 
 ![Load Transient Response Waveform](load_transient.jpg)
-
+![Load Transient Response Waveform](result.jpg)
 ---
 
