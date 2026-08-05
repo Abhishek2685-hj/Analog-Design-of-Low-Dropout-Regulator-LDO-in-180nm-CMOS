@@ -1,4 +1,4 @@
-# 180nm PMOS-Pass Transistor Low Dropout (LDO) Voltage Regulator
+# Low Dropout (LDO) Voltage Regulator
 
 A high-efficiency, low-power **Linear Voltage Regulator** design implemented in a **180nm CMOS technology node**. This regulator delivers a highly stable `0.8V` output voltage from a `1.8V` input supply, ensuring optimal voltage regulation for battery-powered devices and noise-sensitive analog circuits without the use of a power-hungry charge pump.
 
@@ -44,29 +44,9 @@ The LDO operates via a continuous, high-speed **Negative Feedback Loop** designe
 
 ### 1. Architectural System Block Diagram
 
-```text
-              Unregulated Input Rail (Vin = 1.8V)
-                             │
-                             ▼
-              ┌─────────────────────────────┐
-              │  PMOS Pass Transistor (mp)  │───────┬───────► Regulated Output (Vout = 0.8V)
-              └─────────────────────────────┘       │
-                             ▲                      ├─── [ Filter Capacitor: Cout = 20nF ]
-                             │ Error Control        ├─── [ Dynamic Load Current: Iload ]
-                             │ Signal (Vgate)       │
-                    ┌─────────────────┐             ▼
-                    │ Error Amplifier │      ┌──────────────┐
-                    └─────────────────┘      │  Resistor    │  Feedback Sampling Network
-                      ─ (Inverting)   │      │  Divider     │  R1 = 10kΩ
-                      ▲               │      │  Network     │  Rg = 30kΩ
-                      │               │      └──────────────┘
-              ┌───────┴───────┐       │             │
-              │ Reference Vol │       └─────────────┴───────► Feedback Voltage (Vfb)
-              │ Vref = 0.6V   │
-              └───────────────┘
-```
 
-![System Block Diagram](images/block_diagram.png)
+
+![System Block Diagram](block_diagram.png)
 
 ---
 
@@ -74,16 +54,17 @@ The LDO operates via a continuous, high-speed **Negative Feedback Loop** designe
 
 Below is the structural circuit realization containing the Error Amplifier block, the PMOS (\(m_p\)) pass element, and the resistor divider configuration:
 
-![Circuit Schematic](images/circuit_diagram.png)
+![Circuit Schematic](schematic.jpg)
 
 ---
 
 ### 3. Feedback Loop Mechanics
-- **Sampling:** The resistor divider (R₁ and \(R_g\)) continuously samples a scaled fraction of the output voltage (\(V_{out}\)) to output a Feedback Voltage (\(V_{FB}\)).
-- **Comparison:** The Error Amplifier operates as the control core of the system. It maps the error tracking profile by comparing \(V_{FB}\) against the stable reference voltage (\(V_{ref} = 0.6V\)).
+- **Sampling:** The resistor divider $R_1$ and $R_2$ continuously samples a scaled fraction of the output voltage $V_{out}$ to output a Feedback Voltage $V_{FB}$.
+- **Comparison:** The Error Amplifier operates as the control core of the system. It maps the error tracking profile by comparing $V_{FB}$ against the stable reference voltage $V_{ref} = 0.6V$.
 - **Negative Feedback Regulation Action:**
-  - **Case A: Output Voltage Decreases (\(V_{FB} < V_{ref}\)):** If a sudden current draw causes \(V_{out}\) to dip, \(V_{FB}\) drops beneath \(V_{ref}\). The Error Amplifier instantly detects this delta and drives its output gate voltage (\(V_{gate}\)) **lower**. Pulling the PMOS gate lower drives it **ON more heavily**, which pushes a burst of supply current from the input to the output to restore \(V_{out}\) back to its steady-state target of 0.8V.
-  - **Case B: Output Voltage Increases (\(V_{FB} > V_{ref}\)):** If the load requirements lighten up, \(V_{out}\) scales upward, pushing \(V_{FB}\) higher than \(V_{ref}\). The Error Amplifier reacts by driving the PMOS gate voltage (\(V_{gate}\)) **higher**. This turns the PMOS transistor **ON less**, dropping the source-to-drain current flow and lowering \(V_{out}\) perfectly back down to 0.8V.
+  - **Case A: Output Voltage Decreases ($V_{FB} < V_{ref}$):** If a sudden current draw causes $V_{out}$ to dip, $V_{FB}$ drops beneath $V_{ref}$. The Error Amplifier instantly detects this delta and drives its output gate voltage $V_{gate}$ **lower**. Pulling the PMOS gate lower drives it **ON more heavily**, which pushes a burst of supply current from the input to the output to restore $V_{out}$ back to its steady-state target of 0.8V.
+  - **Case B: Output Voltage Increases ($V_{FB} > V_{ref}$):** If the load requirements lighten up, $V_{out}$ scales upward, pushing $V_{FB}$ higher than $V_{ref}$. The Error Amplifier reacts by driving the PMOS gate voltage $V_{gate}$ **higher**. This turns the PMOS transistor **ON less**, dropping the source-to-drain current flow and lowering $V_{out}$ perfectly back down to 0.8V.
+
 
 ---
 
@@ -98,7 +79,7 @@ To thoroughly evaluate loop stability, regulation precision, and response times,
 * **Result:** **`12 mV/V`**
 * **Analysis:** This indicates outstanding regulation; for an entire 1.0 Volt jump at the input rail, the regulated output changes by a mere 12 millivolts.
 
-![Line Regulation Waveform](images/line_regulation.png)
+![Line Regulation Waveform](line.jpg)
 
 ---
 
@@ -109,7 +90,7 @@ To thoroughly evaluate loop stability, regulation precision, and response times,
 * **Result:** **`0.15 mV/mA`**
 * **Analysis:** For every 1 milliamp change in output current demand, the output voltage drops or shifts by only 0.15 millivolts, showcasing excellent loop gain tracking.
 
-![Load Regulation Waveform](images/load_regulation.png)
+![Load Regulation Waveform](load.jpg)
 
 ---
 
@@ -121,7 +102,7 @@ To thoroughly evaluate loop stability, regulation precision, and response times,
 - **Overshoot:** `32.19 mV` *(The brief voltage spike that manifests right after a sudden step-down decrease in load current)*.
 - **Settling Time:** **`10.9 µs`** *(The total elapsed duration required for the internal feedback loop to dampen out the disturbance and guide the output back into its normal regulated threshold)*.
 
-![Load Transient Response Waveform](images/load_transient.png)
+![Load Transient Response Waveform](load_transient.jpg)
 
 ---
 
