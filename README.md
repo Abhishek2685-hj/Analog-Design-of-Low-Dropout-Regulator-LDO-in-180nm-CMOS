@@ -79,7 +79,7 @@ To thoroughly evaluate loop stability, regulation precision, and response times,
 * **Result:** **`12 mV/V`**
 * **Analysis:** This indicates outstanding regulation; for an entire 1.0 Volt jump at the input rail, the regulated output changes by a mere 12 millivolts.
 
-![Line Regulation Waveform](line.jpg)
+![Line Regulation Waveform](line_regulation.jpg)
 
 ---
 
