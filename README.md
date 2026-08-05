@@ -73,22 +73,24 @@ Below is the structural circuit realization containing the Error Amplifier block
 To thoroughly evaluate loop stability, regulation precision, and response times, DC analysis and transient analysis testbenches were simulated.
 
 ### 1. Line Regulation (DC Analysis)
-* **Objective:** Measures the LDO's resilience to maintain a locked output voltage (\(V_{out}\)) when the input power supply (\(V_{in}\)) exhibits significant swinging variations.
+* **Objective:** Measures the LDO's resilience to maintain a locked output voltage $V_{out}$ when the input power supply $V_{in}$ exhibits significant swinging variations.
 * **Mathematical Formula:** 
-  \[\text{Line Regulation} = \frac{\Delta V_{out}}{\Delta V_{in}}\]
+  $$\text{Line Regulation} = \frac{\Delta V_{out}}{\Delta V_{in}}$$
 * **Result:** **`12 mV/V`**
 * **Analysis:** This indicates outstanding regulation; for an entire 1.0 Volt jump at the input rail, the regulated output changes by a mere 12 millivolts.
+
 
 ![Line Regulation Waveform](line_regulation.jpg)
 
 ---
 
 ### 2. Load Regulation (DC Analysis)
-* **Objective:** Assesses the design's capability to provide a flat output voltage profile (\(V_{out}\)) when the load demand (\(I_{load}\)) surges across its total operational boundary.
+* **Objective:** Assesses the design's capability to provide a flat output voltage profile $V_{out}$ when the load demand $I_{load}$ surges across its total operational boundary.
 * **Mathematical Formula:** 
-  \[\text{Load Regulation} = \frac{\Delta V_{out}}{\Delta I_{out}}\]
+  $$\text{Load Regulation} = \frac{\Delta V_{out}}{\Delta I_{out}}$$
 * **Result:** **`0.15 mV/mA`**
 * **Analysis:** For every 1 milliamp change in output current demand, the output voltage drops or shifts by only 0.15 millivolts, showcasing excellent loop gain tracking.
+
 
 ![Load Regulation Waveform](load.png)
 
