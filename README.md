@@ -90,7 +90,7 @@ To thoroughly evaluate loop stability, regulation precision, and response times,
 * **Result:** **`0.15 mV/mA`**
 * **Analysis:** For every 1 milliamp change in output current demand, the output voltage drops or shifts by only 0.15 millivolts, showcasing excellent loop gain tracking.
 
-![Load Regulation Waveform](load.jpg)
+![Load Regulation Waveform](load.png)
 
 ---
 
